@@ -7,4 +7,4 @@
 * truffle
 * zksync-gosdk
 * web3js
-* ethclient(待整理)
+* ethclient
