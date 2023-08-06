@@ -7,11 +7,10 @@ import (
 	"testing"
 )
 
-func TestSendTransaction(t *testing.T){
+func TestGetBlockNumber(t *testing.T) {
 	rawRPCURL := "http://localhost:8545"
 
 	client, _ := ethclient.Dial(rawRPCURL)
-	//client.SendTransaction(context.Background())
-	h,_ := client.BlockNumber(context.Background())
+	h, _ := client.BlockNumber(context.Background())
 	fmt.Println(h)
 }
