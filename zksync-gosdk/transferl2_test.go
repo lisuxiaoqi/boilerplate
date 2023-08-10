@@ -13,8 +13,8 @@ import (
 
 func TestTransferL2(t *testing.T) {
 	var (
-		PrivateKey1          = "d8611869c1cf0548d412322d5a946b1fa5303d80a9ce48ff0a7b697d1c7f3cd6"
-		PublicKey2           = "52a48cbc7bdF3cd49c747E3dC7e28484Ce52718e"
+		FromPrivateKey       = "d8611869c1cf0548d412322d5a946b1fa5303d80a9ce48ff0a7b697d1c7f3cd6"
+		ToAddress            = "0x52a48cbc7bdF3cd49c747E3dC7e28484Ce52718e"
 		ZkSyncProvider       = "http://localhost:3050"
 		transferAmount int64 = 1_000_000_000_000_000_000
 	)
@@ -31,7 +31,7 @@ func TestTransferL2(t *testing.T) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	es, err := accounts.NewEthSignerFromRawPrivateKey(common.Hex2Bytes(PrivateKey1), chainID.Int64())
+	es, err := accounts.NewEthSignerFromRawPrivateKey(common.Hex2Bytes(FromPrivateKey), chainID.Int64())
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -47,16 +47,16 @@ func TestTransferL2(t *testing.T) {
 	if err != nil {
 		log.Panic(err)
 	}
-	account2Balance, err := zp.BalanceAt(context.Background(), common.HexToAddress(PublicKey2), nil)
+	account2Balance, err := zp.BalanceAt(context.Background(), common.HexToAddress(ToAddress), nil)
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println("Account1 balance before transfer: ", account1Balance)
-	fmt.Println("Account2 balance before transfer: ", account2Balance)
+	fmt.Println("Account1 balance before transfer: ", WeiToEther(account1Balance))
+	fmt.Println("Account2 balance before transfer: ", WeiToEther(account2Balance))
 
 	// Perform transfer
 	hash, err := w.Transfer(
-		common.HexToAddress(PublicKey2),
+		common.HexToAddress(ToAddress),
 		big.NewInt(transferAmount),
 		nil,
 		nil,
@@ -77,10 +77,10 @@ func TestTransferL2(t *testing.T) {
 	if err != nil {
 		log.Panic(err)
 	}
-	account2Balance, err = zp.BalanceAt(context.Background(), common.HexToAddress(PublicKey2), nil)
+	account2Balance, err = zp.BalanceAt(context.Background(), common.HexToAddress(ToAddress), nil)
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println("Account1 balance after transfer: ", account1Balance)
-	fmt.Println("Account2 balance after transfer: ", account2Balance)
+	fmt.Println("Account1 balance after transfer: ", WeiToEther(account1Balance))
+	fmt.Println("Account2 balance after transfer: ", WeiToEther(account2Balance))
 }

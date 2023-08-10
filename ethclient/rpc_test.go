@@ -11,7 +11,7 @@ import (
 
 func TestGetTxReceipt(t *testing.T) {
 	rawRPCURL := "http://localhost:8545"
-	txHash := "0xfaa3cb7c64dc20fcf77de55e041ee03ae939ca525594ad759cfe63649540b843"
+	txHash := "0xb75ba1fec6c309c3b6c828f8a0047f0018a3c3305d2e4814238146cf2e5a32fc"
 
 	client, _ := ethclient.Dial(rawRPCURL)
 

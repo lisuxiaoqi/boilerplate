@@ -18,7 +18,7 @@ func TestWithdraw(t *testing.T) {
 		//PrivateKey = "3ae3debf21096248d91828fc535f7cd243d817cf96248c0785bc54fb6e61c86f"
 		//PublickKey = "52a48cbc7bdF3cd49c747E3dC7e28484Ce52718e"
 		PrivateKey = "d8611869c1cf0548d412322d5a946b1fa5303d80a9ce48ff0a7b697d1c7f3cd6"
-		PublickKey = "2BDDfa90274F14EdeFb750BB8bdDf248e397A95D"
+		Address    = "0x2BDDfa90274F14EdeFb750BB8bdDf248e397A95D"
 
 		ZkSyncProvider         = "http://localhost:3050"
 		EthereumProvider       = "http://localhost:8545"
@@ -60,7 +60,7 @@ func TestWithdraw(t *testing.T) {
 		log.Panic(err)
 	}
 
-	balanceL1, err := ethCli.BalanceAt(context.Background(), common.HexToAddress(PublickKey), nil)
+	balanceL1, err := ethCli.BalanceAt(context.Background(), common.HexToAddress(Address), nil)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -71,8 +71,8 @@ func TestWithdraw(t *testing.T) {
 		log.Panic(err)
 	}
 
-	fmt.Println("L1 Account balance before deposit: ", balanceL1)
-	fmt.Println("L2 Account balance before deposit: ", balanceL2)
+	fmt.Println("L1 Account balance before deposit: ", WeiToEther(balanceL1))
+	fmt.Println("L2 Account balance before deposit: ", WeiToEther(balanceL2))
 
 	//// Perform withdraw
 	wHash, err := w.Withdraw(
@@ -99,7 +99,7 @@ func TestWithdraw(t *testing.T) {
 	}
 	fmt.Println("Finalize withdraw transaction: ", fwHash)
 
-	balanceL1, err = ethCli.BalanceAt(context.Background(), common.HexToAddress(PublickKey), nil)
+	balanceL1, err = ethCli.BalanceAt(context.Background(), common.HexToAddress(Address), nil)
 	if err != nil {
 		log.Panic(err)
 	}
@@ -110,6 +110,6 @@ func TestWithdraw(t *testing.T) {
 		log.Panic(err)
 	}
 
-	fmt.Println("L1 Account balance after deposit: ", balanceL1)
-	fmt.Println("L2 Account balance after deposit: ", balanceL2)
+	fmt.Println("L1 Account balance after deposit: ", WeiToEther(balanceL1))
+	fmt.Println("L2 Account balance after deposit: ", WeiToEther(balanceL2))
 }

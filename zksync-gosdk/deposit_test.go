@@ -60,7 +60,7 @@ func TestDeposit(t *testing.T) {
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println("Balance before deposit: ", balance)
+	fmt.Println("Balance before deposit: ", WeiToEther(balance))
 
 	// Perform deposit
 	tx, err := ep.Deposit(
@@ -105,5 +105,5 @@ func TestDeposit(t *testing.T) {
 	if err != nil {
 		log.Panic(err)
 	}
-	fmt.Println("Balance after deposit: ", balance)
+	fmt.Println("Balance after deposit: ", WeiToEther(balance))
 }
