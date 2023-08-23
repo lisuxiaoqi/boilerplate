@@ -67,7 +67,7 @@ async function run(){
     to:contractAddress,
     data:contract.methods.getCount().encodeABI()
   })
-  console.log("Call result2:", callResult)
+  console.log("before transfer", callResult)
 }
 
 run()

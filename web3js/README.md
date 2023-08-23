@@ -6,4 +6,9 @@ web3js网站：https://web3js.readthedocs.io/
 npm install web3
 
 ## 运行
-node rpc.js
+```
+node contract.js
+node transfer.js
+node eip1559.js
+```
+
