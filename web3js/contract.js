@@ -4,37 +4,37 @@ const Web3 = require('web3');
 // 连接以太坊节点
 const web3 = new Web3('http://localhost:8545');
 
-const contractAddress = "0xe547d6DF6C6efD549Ac71b333a49459585C7e087"
+const contractAddress = "0xe5CC80FC5BD03655c4BaD29C6cDCf39dec240190"
 
-const personalAddress = "0xbbE4733d85bc2b90682147779DA49caB38C0aA1F"
+const personalAddress = "0x8d63Bd4B972794b67aA83CDaf09dB5655b4e00CC"
 
-const personalKey = "8ff3ca2d9985c3a52b459e2f6e7822b23e1af845961e22128d5f372fb9aa5f17"
+const personalKey = "08a59286ea6759517e9cd2f01faf9625f0c7502d5401656a2ef5f3121c977f82"
 
 const contractABI = [
   {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "c",
-        "type": "uint256"
-      }
-    ],
-    "name": "increment",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "getCount",
+    "name": "get",
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "c",
+        "name": "",
         "type": "uint256"
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "x",
+        "type": "uint256"
+      }
+    ],
+    "name": "set",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
@@ -46,7 +46,7 @@ async function run(){
   const txObject = {
     from: personalAddress,
     to: contractAddress,
-    data: contract.methods.increment(1).encodeABI(),
+    data: contract.methods.set(15).encodeABI(),
     nonce: web3.utils.toHex(txCount),
     gas: 2000000
   };
@@ -59,15 +59,15 @@ async function run(){
 
   console.log("txResult:", txResult)
 
-  const callResult = await contract.methods.getCount().call()
+  const callResult = await contract.methods.get().call()
 
   console.log("Call result1:", callResult)
 
   const callResult2 = await web3.eth.call({
     to:contractAddress,
-    data:contract.methods.getCount().encodeABI()
+    data:contract.methods.get().encodeABI()
   })
-  console.log("before transfer", callResult)
+  console.log("Call result2:",  web3.utils.toDecimal(callResult2))
 }
 
 run()
