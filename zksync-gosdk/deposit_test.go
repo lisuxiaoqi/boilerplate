@@ -19,7 +19,7 @@ func TestDeposit(t *testing.T) {
 		PrivateKey             = "d8611869c1cf0548d412322d5a946b1fa5303d80a9ce48ff0a7b697d1c7f3cd6"
 		ZkSyncProvider         = "http://localhost:3050"
 		EthereumProvider       = "http://localhost:8545"
-		depositAmount    int64 = 5_000_000_000_000_000_000
+		depositAmount    int64 = 1_000_000_000_000_000_000
 	)
 
 	// Connect to zkSync network

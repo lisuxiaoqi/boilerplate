@@ -138,7 +138,7 @@ func TestFreeze(t *testing.T) {
 func TestUnFreeze(t *testing.T) {
 	url := "http://localhost:8545"
 	//这儿要使用CONTRACTS_DIAMOND_PROXY_ADDR地址作为总入口
-	contractAddrStr := "0x7417822e3ca914A83a24d18CB529E9EfDE2f2b0a"
+	contractAddrStr := "0x27d90116114E5654509716e19777eDd1F7A0165E"
 	privateKeyStr := "e131bc3f481277a8f73d680d9ba404cc6f959e64296e0914dded403030d4f705"
 
 	contractABI := `
