@@ -5,6 +5,9 @@ template Mul() {
     signal input b;
     signal output c;
     c <== a*b;
+
+    log(123);
+    log("bo");
  }
 
  component main = Mul();
