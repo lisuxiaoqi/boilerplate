@@ -82,4 +82,4 @@ require (
 	lukechampine.com/blake3 v1.2.1 // indirect
 )
 
-replace github.com/celestiaorg/celestia-openrpc => ../../../celestiaorg/celestia-openrpc
+//replace github.com/celestiaorg/celestia-openrpc => ../../../celestiaorg/celestia-openrpc
