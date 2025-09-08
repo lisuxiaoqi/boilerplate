@@ -18,8 +18,11 @@ import (
 	"time"
 )
 
-func TestGetCode(t *testing.T) {
-	url := "http://localhost:8545"
+/*
+* 测试Sample.Sol
+ */
+func TestGetContractCode(t *testing.T) {
+	url := rawRPCURL
 	contractAddr := "0x30037F2827B2BCa2118bd8FE66A2b5ef290FD9F4"
 
 	//check contract address
@@ -40,24 +43,24 @@ func TestGetCode(t *testing.T) {
 }
 
 func TestGet(t *testing.T) {
-	url := "http://localhost:8545"
+	url := rawRPCURL
 	contractAddrStr := "0x30037F2827B2BCa2118bd8FE66A2b5ef290FD9F4"
-	functionName := "retrieve"
+	functionName := "get"
 
 	contractABI := `
 	[
 		{
-			"inputs": [],
-			"name": "retrieve",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
+		  "inputs": [],
+		  "name": "get",
+		  "outputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "",
+			  "type": "uint256"
+			}
+		  ],
+		  "stateMutability": "view",
+		  "type": "function"
 		}
 	]
 	`
@@ -102,26 +105,26 @@ func TestGet(t *testing.T) {
 }
 
 func TestSet(t *testing.T) {
-	url := "http://localhost:8545"
+	url := rawRPCURL
 	privateKeyStr := "a18b16c79a875c85a16377735a1fc713d1c90ae59303f2f66aa43b256c5ef41c"
 	contractAddrStr := "0x30037F2827B2BCa2118bd8FE66A2b5ef290FD9F4"
-	functionName := "store"
+	functionName := "set"
 	var value int64 = 32
 
 	contractABI := `
 	[
 		{
-			"inputs": [
-				{
-					"internalType": "uint256",
-					"name": "num",
-					"type": "uint256"
-				}
-			],
-			"name": "store",
-			"outputs": [],
-			"stateMutability": "nonpayable",
-			"type": "function"
+		  "inputs": [
+			{
+			  "internalType": "uint256",
+			  "name": "x",
+			  "type": "uint256"
+			}
+		  ],
+		  "name": "set",
+		  "outputs": [],
+		  "stateMutability": "nonpayable",
+		  "type": "function"
 		}
 	]
 	`

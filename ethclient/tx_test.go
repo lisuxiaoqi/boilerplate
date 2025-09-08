@@ -2,6 +2,9 @@ package main
 
 import (
 	"context"
+	"encoding/json"
+	"fmt"
+	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
 	"testing"
 )
@@ -10,8 +13,6 @@ var data = "0x02f9011482053912847735940085051f4d5c008405f5e1009446f74a450cc73275
 
 // Get Block safe, finalized
 func TestSendRawTx(t *testing.T) {
-	rawRPCURL := "http://localhost:7545"
-
 	client, _ := ethclient.Dial(rawRPCURL)
 
 	err := client.Client().CallContext(context.Background(), nil, "eth_sendRawTransaction", data)
@@ -22,4 +23,46 @@ func TestSendRawTx(t *testing.T) {
 
 	//b, _ := json.MarshalIndent(block.Header(), "", "  ")
 	//fmt.Println(string(b))
+}
+
+// Get Tx Receipt
+func TestGetTxReceipt(t *testing.T) {
+	txHash := "0x81aa14fb1cbf06f7247b01c775aec4c68e5f07c4c03928a46712e0493edfae11"
+
+	client, _ := ethclient.Dial(rawRPCURL)
+
+	receipt, err := client.TransactionReceipt(context.Background(), common.HexToHash(txHash))
+	if err != nil {
+		t.Errorf("Get Tx Receipt error:%v\n", err)
+		return
+	}
+
+	// 将 Receipt 转换为 JSON 字符串
+	receiptJSON, err := json.MarshalIndent(receipt, "", "    ")
+	if err != nil {
+		t.Fatalf("Get Tx Receipt error:%v\n", err)
+	}
+
+	fmt.Println("Receipt as JSON string:")
+	fmt.Println(string(receiptJSON))
+}
+
+func TestGetCode(t *testing.T) {
+	contractAddr := "0xEf7fCbF4e0740Aa07B9a3024334929402fe3FE45"
+
+	//check contract address
+	client, _ := ethclient.Dial(rawRPCURL)
+	code, err :=
+		client.CodeAt(context.Background(), common.HexToAddress(contractAddr), nil)
+	if err != nil {
+		fmt.Printf("Get contract code at address:%v error:%v\n", contractAddr, err)
+		return
+	}
+
+	if len(code) == 0 {
+		fmt.Printf("No contract deployed at address::%v\n", contractAddr)
+		return
+	}
+
+	fmt.Printf("Successfully get contract at address::%v\n", contractAddr)
 }
