@@ -10,7 +10,7 @@ require (
 )
 
 require (
-	github.com/algorand/go-codec/codec v1.1.7 // indirect
+	github.com/algorand/go-codec/codec v1.1.10 // indirect
 	github.com/algorand/websocket v1.4.1 // indirect
 	github.com/btcsuite/btcd v0.20.1-beta // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect

@@ -27,8 +27,10 @@ func TestSendRawTx(t *testing.T) {
 
 // Get Tx Receipt
 func TestGetTxReceipt(t *testing.T) {
-	txHash := "0x81aa14fb1cbf06f7247b01c775aec4c68e5f07c4c03928a46712e0493edfae11"
-
+	//v18
+	//txHash := "0x897dbdd21a01fcbe92b163d0c77115460836d8aa98d861c7c26e81de2a8ee93f"
+	//v20
+	txHash := "0x02f3601df69f891dc99bcc05fc34442200338bbdada15b70acf704ef46d62b5c"
 	client, _ := ethclient.Dial(rawRPCURL)
 
 	receipt, err := client.TransactionReceipt(context.Background(), common.HexToHash(txHash))

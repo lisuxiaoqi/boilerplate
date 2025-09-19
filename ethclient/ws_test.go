@@ -12,7 +12,8 @@ import (
 )
 
 func TestWSSubScribe(t *testing.T) {
-	wsURL := "ws://localhost:8546"
+	//wsURL := "ws://localhost:7545"
+	wsURL := "wss://gatelayer-ws-testnet.gatenode.cc"
 	loop := 5
 	cnt := 0
 
@@ -48,10 +49,19 @@ func TestWSSubScribe(t *testing.T) {
 				}
 
 				fmt.Println(time.Now(), "WS Get header:", header.Number, "Hash:", header.Hash().Hex())
+				//gteBlockByNum
+				blockByNum, err := client.BlockByNumber(context.Background(), header.Number)
+				if err != nil {
+					fmt.Printf("BlockByNumber error:%v\n", err)
+					continue
+				} else {
+					fmt.Println("WS get block by Number:", blockByNum.Number(), "Hash:", header.Hash().Hex())
+				}
+
 				//getBlockByHash
 				block, err := client.BlockByHash(context.Background(), header.Hash())
 				if err != nil {
-					fmt.Printf("BlockByNumber error:%v\n", err)
+					fmt.Printf("BlockByHash error:%v\n", err)
 					continue
 				} else {
 					fmt.Println("WS get block by Hash:", block.Number(), "txs:", block.Transactions().Len())

@@ -32,7 +32,7 @@ func run() {
 	privKey := "a18b16c79a875c85a16377735a1fc713d1c90ae59303f2f66aa43b256c5ef41c"
 	toAddr := "0x0000000000000000000000000000000000000000"
 	ctx := context.Background()
-	rpcURL := rawRPCURL // EIP-4844 测试网
+	rpcURL := rawRPCURL
 	client, _ := ethclient.Dial(rpcURL)
 
 	privateKey, _ := crypto.HexToECDSA(privKey)
@@ -70,13 +70,12 @@ func run() {
 	}
 
 	sidecar := &types.BlobTxSidecar{
-		Version:     1,
 		Blobs:       blobs,
 		Commitments: comments,
 		Proofs:      proofs,
 	}
 
-	chainID := uint64(32382)
+	chainID := uint64(1337)
 	to := common.HexToAddress(toAddr)
 	chainId := uint256.NewInt(chainID)
 

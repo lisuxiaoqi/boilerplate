@@ -10,10 +10,14 @@ import (
 	"github.com/stretchr/testify/require"
 	"math/big"
 	"testing"
+	"time"
 )
 
 func TestGetBlockByHash(t *testing.T) {
-	hash := "0x6f0eea6a79cc10ce63f38e85755f32b49e3300144f2b8c95e9e5fdf0a36e4302"
+	//v19
+	//hash := "0x2568d9ce1e80018d13d6d343cddd3c06ecb6b821d6285158e03989eda8bec441"
+	//v20
+	hash := "0x441b8692ad267597eb5ddf0c52f09e835814790b4e157505f16000b214157c40"
 
 	client, _ := ethclient.Dial(rawRPCURL)
 
@@ -47,7 +51,7 @@ func TestGetBlock(t *testing.T) {
 }
 
 func TestGetBlockByNumber(t *testing.T) {
-	number := big.NewInt(int64(3))
+	number := big.NewInt(int64(2036))
 	client, _ := ethclient.Dial(rawRPCURL)
 
 	block, err := client.BlockByNumber(context.Background(), number)
@@ -61,4 +65,31 @@ func TestGetBlockByNumber(t *testing.T) {
 
 	b, _ := json.MarshalIndent(block.Header(), "", "  ")
 	fmt.Println(string(b))
+}
+
+func TestGetBlockByNumberLatest(t *testing.T) {
+	client, _ := ethclient.Dial(rawRPCURL)
+
+	for {
+		//blockLatest, err := client.BlockByNumber(context.Background(), big.NewInt(int64(rpc.LatestBlockNumber)))
+		blockLatest, err := client.BlockByNumber(context.Background(), big.NewInt(int64(rpc.LatestBlockNumber)))
+		//blockLatest, err := client.BlockByNumber(context.Background(), big.NewInt(2036))
+		if err != nil {
+			fmt.Printf("BlockByNumber error:%v\n", err)
+			time.Sleep(1 * time.Second)
+			continue
+		} else {
+			fmt.Println("WS get block by Number:", blockLatest.Number(), "Hash:", blockLatest.Hash().Hex())
+		}
+
+		//getBlockByHash
+		blockByHash, err := client.BlockByHash(context.Background(), blockLatest.Hash())
+		if err != nil {
+			fmt.Printf("BlockByHash error:%v\n", err)
+			panic("Shouldn't happen")
+		} else {
+			fmt.Println("WS get block by Hash:", blockByHash.Number(), "Hash:", blockByHash.Hash().Hex())
+		}
+		time.Sleep(1 * time.Second)
+	}
 }
