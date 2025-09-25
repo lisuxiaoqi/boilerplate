@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"crypto/ecdsa"
-	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"github.com/ethereum/go-ethereum"
@@ -12,23 +11,12 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"golang.org/x/crypto/sha3"
 	"log"
 	"math/big"
 	"strings"
 	"testing"
 	"time"
 )
-
-func TestSelector(t *testing.T) {
-	signature := "ClockNotExpired()"
-
-	hash := sha3.NewLegacyKeccak256() // Ethereum 使用 Keccak256
-	hash.Write([]byte(signature))
-	sum := hash.Sum(nil)
-	selector := sum[:4] // 前 4 个字节
-	fmt.Printf("0x" + hex.EncodeToString(selector))
-}
 
 /*
 * 测试Sample.Sol
