@@ -1,4 +1,4 @@
-package main
+package eth
 
 import (
 	"context"
@@ -36,6 +36,7 @@ func TestGetBlockByHash(t *testing.T) {
 	fmt.Println(string(b))
 }
 
+// Get Block safe, finalized
 // Get Block safe, finalized
 func TestGetBlock(t *testing.T) {
 	client, _ := ethclient.Dial(rawRPCURL)

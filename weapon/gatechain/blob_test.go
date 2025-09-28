@@ -1,11 +1,13 @@
-package main
+package gatechain
 
 import (
 	"context"
 	"crypto/rand"
+	"encoding/base32"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"github.com/stretchr/testify/require"
 	"math/big"
 	mrand "math/rand"
 	"strings"
@@ -174,4 +176,17 @@ func randBlob() *kzg4844.Blob {
 		copy(blob[i:i+gokzg4844.SerializedScalarSize], fieldElementBytes[:])
 	}
 	return &blob
+}
+
+/*
+ *21060765: 0xa4a9b49392ce7e7ec6d8b43123d0b00cdca5972692a28a3bbdc09cf37c81ef06e7be3fcc7f52b1268a9494893ef3fe76
+* 21060889: 0x0014f7ace6a3bf68812fc225195ba79053e814cf292b5b2c4882d894b6563775dd75b15d10c8ee3c8e3fcd41fab73e0c
+*/
+// 从gatechain区块哈希，获取blob存储路径
+func TestAddress(t *testing.T) {
+	DigestStr := "WN5ZRJDKAEER2SHI7P7K4JTVPLF5QHSR76EIGTHX2BW7TV6VKV6YJ4W2U5J6I2JHYPN36J3HFMBE6"
+	decodedHash, err := base32.StdEncoding.WithPadding(base32.NoPadding).DecodeString(DigestStr)
+	require.NoError(t, err)
+	blobPath := fmt.Sprintf("%#x", decodedHash)
+	fmt.Println(blobPath)
 }

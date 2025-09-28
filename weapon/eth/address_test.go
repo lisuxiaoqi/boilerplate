@@ -1,4 +1,4 @@
-package main
+package eth
 
 import (
 	"crypto/ecdsa"
@@ -11,6 +11,7 @@ import (
 	"testing"
 )
 
+// 生成以太坊地址，私钥
 func Test_GenEthAddress(t *testing.T) {
 	// privKey
 	privateKey, err := crypto.GenerateKey()
@@ -28,6 +29,7 @@ func Test_GenEthAddress(t *testing.T) {
 	fmt.Println("Address (0x prefixed):", address.Hex())
 }
 
+// 生成以太坊助记词
 func Test_OutputMemo(t *testing.T) {
 	// 1. 生成 128 位熵 (对应 12 个助记词)
 	entropy, err := bip39.NewEntropy(128)
@@ -92,6 +94,7 @@ func deriveETHAccount(seed []byte, index uint32) (*ecdsa.PrivateKey, string, err
 	return privKey, address, nil
 }
 
+// 导入以太坊助记词
 func Test_AddressFromMemo(t *testing.T) {
 	// 输入助记词（BIP39 12/24 个单词）
 	mnemonic := "spice episode shoe wing danger reason sweet beyond dust escape science since"

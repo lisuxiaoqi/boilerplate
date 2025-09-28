@@ -1,4 +1,4 @@
-package main
+package gatechain
 
 import (
 	"encoding/hex"

@@ -1,4 +1,4 @@
-package main
+package eth
 
 import (
 	"encoding/hex"
@@ -14,5 +14,5 @@ func TestSelector(t *testing.T) {
 	hash.Write([]byte(signature))
 	sum := hash.Sum(nil)
 	selector := sum[:4] // 前 4 个字节
-	fmt.Printf("0x" + hex.EncodeToString(selector))
+	fmt.Println("0x" + hex.EncodeToString(selector))
 }
